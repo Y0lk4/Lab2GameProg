@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "420_541_Lab2-Level-Design.slnx"
+    "dotnet.defaultSolution": "Lab2GameProg.slnx"
 }
