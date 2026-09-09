@@ -110,6 +110,8 @@ public class WallRunning : MonoBehaviour
             wallForward = -wallForward;
         }
 
+        //TBA, lock the camera to the direction im wall running to
+
         rb.AddForce(wallForward * wallRunForce, ForceMode.Force);
     }
 
