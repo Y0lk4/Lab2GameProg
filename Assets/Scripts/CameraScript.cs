@@ -6,15 +6,16 @@ public class CameraScript : MonoBehaviour
     [Header("Mouse Look")]
     public float mouseSensitivity = 0.1f;
     public float lookLimit = 80.0f;
+    
 
     private float verticalLook = 25f;
-    private Vector2 lookInput;
+    private Vector3 lookInput;
 
     // Called automatically by PlayerInput component via "Send Messages"
     // OR bound programmatically via C# Input Actions
     public void OnLook(InputValue value)
     {
-        lookInput = value.Get<Vector2>();
+        lookInput = value.Get<Vector3>();
     }
 
     public void OnCancel(InputValue value)
@@ -34,7 +35,7 @@ public class CameraScript : MonoBehaviour
 
     void LateUpdate()
     {
-        // Calculate pitch (up/down) for the camera
+        //Calculate pitch (up/down) for the camera
         float mouseY = lookInput.y * mouseSensitivity;
         verticalLook -= mouseY;
         verticalLook = Mathf.Clamp(verticalLook, -lookLimit, lookLimit);

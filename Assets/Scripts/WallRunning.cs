@@ -128,7 +128,7 @@ public class WallRunning : MonoBehaviour
         // multiply the up with the force of the jump that goes up and add the force thats going outwards the wall which is multiplied by the wall normal
         Vector3 forceToApply = transform.up * wallJumpForce + wallNormal * wallJumpSideForce;
 
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        rb.AddForce(forceToApply, ForceMode.Impulse);
+        // rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        rb.AddForce(forceToApply, ForceMode.VelocityChange);
     }
 }
