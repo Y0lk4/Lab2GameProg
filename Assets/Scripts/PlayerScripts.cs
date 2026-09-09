@@ -1,10 +1,12 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 6.0f;
-    public float jumpForce = 10.0f;
+    public float jumpForce = 20.0f;
+    public float wallrunSpeed = 6.0f;
 
     [Header("Ground Check")]
     public LayerMask groundMask;
@@ -13,6 +15,16 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     public float mouseSensitivity = 2.0f;
 
+
+    public MovementState state;
+    public enum MovementState
+    {
+        Grounded,
+        WallRunning,
+        Airborne
+    }
+
+    public bool wallrunning;
     private bool isGrounded;
     private bool jumpRequested;
 
@@ -31,6 +43,8 @@ public class PlayerController : MonoBehaviour
         // Ground Check using a Raycast downwards
         isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundMask);
 
+        StateHandler();
+
         // Capture jump input in Update so frames aren't missed
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
@@ -40,6 +54,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (wallrunning) return;
+
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -66,5 +82,14 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.linearVelocity = targetVelocity;
+    }
+
+    private void StateHandler()
+    {
+        if (wallrunning)
+        {
+            state = MovementState.WallRunning;
+            moveSpeed = wallrunSpeed;
+        }
     }
 }
